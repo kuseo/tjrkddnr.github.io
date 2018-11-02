@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Resume Generator</title>
     <link rel="stylesheet" type="text/css" href="css/resume.css"/>
-    <script src="js/jspdf.min.js"></script>
-    <script src="js/html2canvas.min.js"></script>
     <script src="js/jquery.min.js"></script>
+    <script src="js/jspdf.debug.js"></script>
+    <script src="js/html2canvas.js"></script>
 </head>
 <body>
     <!-- section for generator -->
@@ -16,6 +16,7 @@
         <h1>Resume Generator</h1>
         1. Basic Introduction <br>
         &nbsp;1-1. Profile image : <input type="file" id="portrait"> <br>
+        &nbsp;&nbsp;&nbsp;(You should add this web page as "trustable page" to load the local image.) <br>
         &nbsp;1-2. Name : <input type="text" id="_name" placeholder="Kang-Uk, Seo"> <br>
         &nbsp;1-3. Contact info <br>
         &nbsp;&nbsp;Residence : <input type="text" id="_residence" placeholder="Anamdong"> <br>
@@ -190,7 +191,7 @@
             var img = document.getElementById('portrait').value;
             var name = document.getElementById('_name').value;
             var residence = document.getElementById('_residence').value;
-            var email = document.getElementById('_email');
+            var email = document.getElementById('_email').value;
             var phone = document.getElementById('_phone').value;
             var webpage = document.getElementById('_webpage').value;
 
@@ -323,14 +324,17 @@
         }
 
         function save() {
-            html2canvas(document.getElementById('resumeData'),{
-                onrendered: function(canvas) {
+            html2canvas(document.getElementById("resumeData")).then(
+                function(canvas) {
                     var imgData = canvas.toDataURL('image/jpeg', 1.0);
-                    var doc = new jsPDF('p', 'mm', [297,210]);
-                    doc.addImage(imgData, 'PNG', 10, 10, 190, 95);
+                    console.log('report image URL : '+ imgData);
+                    var doc = new jsPDF('p', 'mm', 'a4');
+                    var width = doc.internal.pageSize.getWidth();
+                    var height = doc.internal.pageSize.getHeight();
+                    doc.addImage(imgData, 'JPEG', 0, 0, width-90, height);
                     doc.save('resume.pdf');
                 }
-            });
+            )
         }
 
         function toggleVisibility(id) {
