@@ -1,1 +1,223 @@
 @charset "UTF-8";
+
+#wrapper {
+	width: 800px;
+	height: 1200px;
+	margin: auto;
+	margin-top: 50px;
+	margin-bottom: 50px;
+	border: 1px solid #000;
+}
+
+body {
+	font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+	background-color: #e1e0db;
+	font-size:13px;
+	line-height: 17px;
+}
+
+/* ENTRIES */
+/* ----------------------------------------- */
+
+#resume_generator h1 {
+	width:500px;
+	margin-bottom: 20px;
+	font-size: 20px;
+}
+
+.entry {
+	width:720px;
+	display: block;
+	padding-top:55px;
+	clear: both;
+	margin-left:4px;
+}
+
+h1  {
+	width:250px;
+	font-size:42px;
+	margin-bottom:3px;
+	clear:both;
+}
+
+h1 span {
+	font-size:21px;
+	display:block;
+	margin-top:15px;
+}
+
+h2 {
+	width:180px;
+	height: 23px;
+	text-align: right;
+	float:left;
+	padding:0;
+	margin:0;
+	clear:both;
+	font-size:22px;
+	margin-bottom:-12px;
+}
+
+p {
+	width:500px;
+	margin-left:40px;
+	float:right;	
+}
+
+p img {
+	float:right;
+	margin-left:20px;
+	padding-left:10px;
+}
+
+p.obj {
+	margin-top: 0px;
+}
+
+div.content {
+	clear: both;
+	padding:0;
+	margin:0;
+	overflow: hidden;
+	display:block;
+	padding-top:20px;
+}
+
+h3 {
+	width:180px;
+	text-align: right;
+	float:left;
+	padding:0;
+	clear:both;
+	font-size: 13px;
+}
+
+h4 {
+	width:180px;
+	text-align: right;
+	float:left;
+	padding:0;
+	clear:both;
+	font-size: 11px;
+}
+
+h5 {
+	width:180px;
+	text-align: right;
+	float:left;
+	padding:0;
+	clear:both;
+	font-size: 10px;
+}
+
+h6 {
+	width:180px;
+	text-align: right;
+	float:left;
+	padding:0;
+	clear:both;
+	font-size: 9px;
+}
+
+em {
+	font-family: Georgia, "Times New Roman", serif;
+	font-style: italic;
+	color:#777777;
+	font-size:12px;
+	display: block;
+	padding-top:3px;
+}
+
+
+ul.unordered {
+	float:right;
+	width:500px;
+	margin-left:40px;
+	
+}
+
+ul.unordered li {
+	margin:0;
+	padding:0;
+	float:left;
+	display: block;
+	width:500px;
+
+	padding-left:10px;
+	margin-top:0;
+}
+
+ul.info {
+	float:right;
+	width:500px;
+	margin-left:40px;
+	list-style-type: none; 
+}
+
+ul.info li {
+	margin:0;
+	padding:0;
+	float:left;
+	display: block;
+	width:500px;
+	padding-left:10px;
+	margin-top:12px;
+}
+
+table.skills {
+	margin:0;
+	padding:0;
+	float:right;
+	width:500px;
+	margin-top: 10px;
+	margin-left:40px;
+}
+
+ul.works {
+	margin:0;
+	padding:0;
+	float:right;
+	width:500px;
+	margin-left:40px;
+	list-style-type: none;
+}
+
+ul.works li {
+	margin:0;
+	padding:0;
+	height: 30px;
+}
+
+img.portrait {
+	width:109px;
+	height:109px;
+	padding-top:20px;
+	padding-left:11px;
+	padding-right:11px;
+	padding-bottom:36px;
+	margin-left:50px;
+	float:left;
+	
+}
+
+
+/* SELF INFORMATION */
+/* ----------------------------------------- */
+
+.self {
+	width:250px;
+	float:left;
+	padding-top:11px;
+	margin-left:38px;
+	margin-bottom:15px;
+}
+
+.self ul {
+	padding-top: 10px;
+	padding-left:10px;
+}
+
+.self ul li {
+	padding-left:10px;
+	height:15px;
+}

@@ -1,108 +1,347 @@
 <!DOCTYPE html>
-
-<html>
-
+<html lang="en">
 <head>
-<title>Test Page</title>
-
-<!-- Might as well have some nice styling -->
-<style>
-
-table.data
-{
-    border: 1px solid gray;
-    width: 200px;
-}
-
-table.data td
-{
-    padding: 6px;
-}
-
-</style>
-
-<script language="javascript">
-
-// Here's some data.
-var data = [
-    ['Fruit', 'Color'],
-    ['apple', 'green'],
-    ['banana', 'yellow'],
-    ['orange', 'orange']
-];
-
-// Here's a function that formats data
-// passed to it in the above format
-// as a table. The HTML is returned
-// as a string.
-function createTable(data) {
-    var html = '';
-    
-    // Assume data is an array of arrays,
-    // containing strings.
-
-    html += '<table class="data">';
-    
-    // Step through the rows of the data.
-    for(var row in data) {
-        var rowData = data[row];
-        
-        if(row == 0) {
-            html += '<tr style="font-weight: bold;">';
-        }
-        else {
-            html += '<tr>';
-        }
-        
-        // Step through the columns in
-        // this row.
-        for(var col in rowData) {
-            var colData = rowData[col];
-            
-            html += '<td>';
-            html += colData;
-            html += '</td>';
-        }
-        
-        html += '</tr>';
-    }
-    
-    html += '</table>';
-    
-    return html;
-}
-
-// This function takes the formatted HTML
-// and inserts it into the document as
-// 'child' HTML of the specified element.
-function insertHTML(id, html) {
-    var el = document.getElementById(id);
-    
-    if(!el) {
-        alert('Element with id ' + id + ' not found.');
-    }
-    
-    el.innerHTML = html;
-}
-
-// This function ties things up.
-function run() {
-    var html = createTable(data);
-    
-    insertHTML('tabledata', html);
-}
-
-// Run everything when the document loads.
-window.onload = run;
-
-</script>
-
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Resume Generator</title>
+    <link rel="stylesheet" type="text/css" href="resume.css"/>
+    <script src="js/jspdf.min.js"></script>
+    <script src="js/html2canvas.min.js"></script>
+    <script src="js/jquery.min.js"></script>
 </head>
-
 <body>
+    <!-- section for generator -->
+    <section id="resume_generator" style="visibility: visible; height: 20px;">
+        <h1>Resume Generator</h1>
+        1. Basic Introduction <br>
+        &nbsp;1-1. Profile image : <input type="file" id="portrait"> <br>
+        &nbsp;1-2. Name : <input type="text" id="_name" placeholder="Kang-Uk, Seo"> <br>
+        &nbsp;1-3. Contact info <br>
+        &nbsp;&nbsp;Residence : <input type="text" id="_residence" placeholder="Anamdong"> <br>
+        &nbsp;&nbsp;E-mail : <input type="text" id="_email" placeholder="abc@abc.abc"> <br>
+        &nbsp;&nbsp;Phone : <input type="text" id="_phone" placeholder="123-1234-1234"> <br>
+        &nbsp;&nbsp;Personal web page : <input type="text" id="_webpage" placeholder="www.example.com"> <br><br><br>
+        
+        2. Objective <br>
+        &nbsp;<textarea id="_objective" rows="2" cols="40" placeholder="one paragraph(carrier goal)"></textarea> <br><br><br>
 
-<div id="tabledata"></div>
+        3. Education
+        &nbsp; <button id="addEdu" onclick="buttonEvent(true, 'edu_table')">Add itme</button>
+        &nbsp; <button id="deleteEdu" onclick="buttonEvent(false, 'edu_table')">Delete item</button>
+        &nbsp;<table id="edu_table">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>School</th>
+                <th>Degree</th>
+            </tr>
+            <tr>
+                <td><input type="month" id="_edufrom0" size="30"></td>
+                <td><input type="month" id="_eduto0" size="30"></td>
+                <td><input type="text" id="_school0" size="30" placeholder="Korea univ"></td>
+                <td><input type="text" id="_degree0" size="30" placeholder="Degree"></td>
+            </tr>
+        </table>
+        <br><br>
+        3. Experience
+        &nbsp; <button id="addExp" onclick="buttonEvent(true, 'exp_table')">Add itme</button>
+        &nbsp; <button id="deleteExp" onclick="buttonEvent(false, 'exp_table')">Delete item</button>
+        &nbsp;<table id="exp_table">
+            <tr>
+                <th>From</th>
+                <th>To</th>
+                <th>Organization</th>
+                <th>Duty</th>
+            </tr>
+            <tr>
+                <td><input type="month" id="_expfrom0" size="30"></td>
+                <td><input type="month" id="_expto0" size="30"></td>
+                <td><input type="text" id="_organization0" size="30" placeholder="Korea Soft"></td>
+                <td><input type="text" id="_duty0" size="30" placeholder="Senior Web Designer"></td>
+            </tr>
+        </table>
+        <br><br>
+        4. Skills
+        &nbsp; <button id="addSkills" onclick="buttonEvent(true, 'skills_table')">Add itme</button>
+        &nbsp; <button id="deleteSkills" onclick="buttonEvent(false, 'skills_table')"> Delete item</button>
+        &nbsp;<table id="skills_table">
+                <tr>
+                    <th>Category</th>
+                    <th>Contents</th>
+                </tr>
+                <tr>
+                    <td><input type="text" id="_category0" size="30" placeholder="Software knowledge"></td>
+                    <td><textarea id="_contents0" rows="3" cols="20" placeholder="C+&#13;&#10;C&#13;&#10;JAVA"></textarea></td>
+                </tr>
+            </table>
+        <br>
+        5. Works
+        &nbsp; <button id="addWorks" onclick="buttonEvent(true, 'works_table')">Add itme</button>
+        &nbsp; <button id="deleteWorks" onclick="buttonEvent(false, 'works_table')">Delete item</button>
+        &nbsp;<table id="works_table">
+                <tr>
+                    <th>What works</th>
+                </tr>
+                <tr>
+                    <td><input type="text" id="_works0" size="30" placeholder="Awards, Projects..."></td>
+                </tr>
+        </table>
 
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp; <button id="submit" onclick="showresume()" style="width:100px; height:50px;">Submit</button>
+        <br><br>
+    </section>
+
+    <!-- section for result resume -->
+    <section id="resume_page" style="visibility: hidden">
+        <div id="resumeData"></div>
+    </section>
+
+    <!-- section for export -->
+    <section id="bottom" style="visibility: hidden">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <button id="goBack" onclick="goBack()" style="width:100px; height:50px;">goBack</button>
+        <button id="save" onclick="save()" style="width:100px; height:50px;">Save</button>
+        <br><br>
+    </section>
+
+    <script>
+        //Add or Delete items
+        function buttonEvent(Add, id) {
+            var wrapper = document.getElementById(id);
+            var index = wrapper.rows.length - 1;
+            var str  = '';
+            if(Add) {
+                var newRow = wrapper.insertRow(index + 1);
+
+                switch(id){
+                    case 'edu_table':
+                    var cell0 = newRow.insertCell(0);
+                    var cell1 = newRow.insertCell(1);
+                    var cell2 = newRow.insertCell(2);
+                    var cell3 = newRow.insertCell(3);
+                    cell0.innerHTML = '<input type="month" id="_edufrom' + index + '" size="30">';
+                    cell1.innerHTML = '<input type="month" id="_eduto' + index + '" size="30">';
+                    cell2.innerHTML = '<input type="text" id="_school' + index + '" size="30" placeholder="Korea univ">';
+                    cell3.innerHTML = '<input type="text" id="_degree' + index + '" size="30" placeholder="Degree">';
+                    break;
+
+                    case 'exp_table':
+                    var cell0 = newRow.insertCell(0);
+                    var cell1 = newRow.insertCell(1);
+                    var cell2 = newRow.insertCell(2);
+                    var cell3 = newRow.insertCell(3);
+                    cell0.innerHTML = '<input type="month" id="_expfrom' + index + '" size="30">';
+                    cell1.innerHTML = '<input type="month" id="_expto' + index + '" size="30">';
+                    cell2.innerHTML = '<input type="text" id="_organization' + index + '" size="30" placeholder="Korea Soft">';
+                    cell3.innerHTML = '<input type="text" id="_duty' + index + '" size="30" placeholder="Senier Web Designer">';
+                    break;
+
+                    case 'skills_table':
+                    var cell0 = newRow.insertCell(0);
+                    var cell1 = newRow.insertCell(1);
+                    cell0.innerHTML = '<input type="text" id="_category' + index + '" size="30" placeholder="Software knowledge">';
+                    cell1.innerHTML = '<textarea id="_contents' + index + '" rows="3" cols="20" placeholder="C+&#13;&#10;C&#13;&#10;JAVA"></textarea>';
+                    break;
+                    
+                    case 'works_table':
+                    var cell0 = newRow.insertCell(0);
+                    cell0.innerHTML = '<input type="text" id="_works' + index + '" size="30" placeholder="Awards, Projects...">'
+                    break;
+                }
+                
+            }else {
+                if(index == 1) return;
+                wrapper.deleteRow(wrapper.rows.length-1);
+            }
+        }
+
+        // Submit button in resume_generator section
+        function showresume() {
+            var html = createHTML();
+            insertHTML('resumeData', html);
+
+            toggleVisibility('resume_generator');
+            toggleVisibility('resume_page');
+            toggleVisibility('bottom');
+        }
+
+        // create resume.html body data
+        function createHTML() {
+            // blablabla
+            var html = '';
+            html+='<div id="wrapper">';
+
+            html += NameForm();
+            html += ObjectiveForm();
+            html += EducationForm();
+            html += ExperienceForm();
+            html += SkillsForm();
+            html += WorksForm();
+
+            html += '</div>';
+
+            return html;
+        }
+
+        function NameForm() {
+            var NAME = '';
+            var img = document.getElementById('portrait').value;
+            var name = document.getElementById('_name').value;
+            var residence = document.getElementById('_residence').value;
+            var email = document.getElementById('_email');
+            var phone = document.getElementById('_phone').value;
+            var webpage = document.getElementById('_webpage').value;
+
+            NAME += '<div class="entry">';
+            NAME += '<img class="portrait" src="img/' + img + '" alt="sample" />';
+            NAME += '<div class="self">';
+            NAME += '<h1 class="name">' + name + '<br></h1>';
+            NAME += '<ul><li>' + residence + '</li>';
+            NAME += '<li>' + email + ' </li>';
+            NAME += '<li>' + phone + '</li>';
+            NAME += '<li>' + webpage + '</li></ul></div></div>';
+
+            return NAME;
+        }
+
+        function ObjectiveForm() {
+            var OBJ = '';
+            var objective = document.getElementById('_objective').value;
+
+            OBJ += '<div class="entry">';
+            OBJ += '<h2>OBJECTIVE</h2>';
+            OBJ += '<p class="obj">' + objective+ '</p></div>';
+
+            return OBJ;
+        }
+
+        function EducationForm() {
+            var EDU = '';
+            var NumOfRows = document.getElementById('edu_table').rows.length - 1;
+
+            EDU += '<div class="entry">';
+            EDU += '<h2>EDUCATION</h2>';
+            for(var i = 0; i < NumOfRows; i++){
+                var from = document.getElementById('_edufrom' + i).value;
+                var to = document.getElementById('_eduto' + i).value;
+                var school = document.getElementById('_school' + i).value;
+                var degree = document.getElementById('_degree' + i).value;
+                EDU += '<div class="content">';
+                EDU += '<h3>' +  from + ' ~ ' + to + '</h3>';
+                EDU += '<p>' + school + '<br>';
+                EDU += '<em>' + degree + '</em></p></div>';
+            }
+            EDU += '</div>';
+
+            return EDU;
+        }
+
+        function ExperienceForm() {
+            var EXP = '';
+            var NumOfRows = document.getElementById('exp_table').rows.length - 1;
+            
+            EXP += '<div class="entry">';
+            EXP += '<h2>EXPERIENCE</h2>';
+            for(var i = 0; i < NumOfRows; i++){
+                var from = document.getElementById('_expfrom' + i).value;
+                var to = document.getElementById('_expto' + i).value;
+                var organization = document.getElementById('_organization' + i).value;
+                var duty = document.getElementById('_duty' + i).value;
+
+                EXP += '<div class="content">';
+                EXP += '<h3>' + from + ' ~ ' + to + '</h3>';
+                EXP += '<p>' + organization + '<br>';
+                EXP += '<em>' + duty + '</em></p></div>';
+            }
+            EXP += '</div>';
+
+            return EXP;
+        }
+
+        function SkillsForm() {
+            var SKILLS = '';
+            var NumOfRows = document.getElementById('skills_table').rows.length - 1;
+
+            SKILLS += '<div class="entry">';
+            SKILLS += '<h2>SKILLS</h2>';
+
+            for(var i = 0; i < NumOfRows; i++){
+                var category = document.getElementById('_category' + i).value;
+                var contents = document.getElementById('_contents' + i).value;
+
+                SKILLS += '<div class="content">';
+                SKILLS += '<h3>' + category +'</h3>';
+                SKILLS += '<table class="skills"><tr>'
+                contents = contents.split("\n");
+                for(var j = 0; j < contents.length; j++){
+                    SKILLS += '<td>' + contents[j] + '</td>';
+                    if((j+1)%3==0)
+                        SKILLS += '</tr><tr>';
+                }
+                SKILLS += '</tr></table></div>';
+            }
+            SKILLS += '</div>';
+        
+            return SKILLS;
+        }
+
+        function WorksForm() {
+            var WORKS = '';
+            var NumOfRows = document.getElementById('works_table').rows.length - 1;
+
+            WORKS += '<div class="entry">';
+            WORKS += '<h2>Works</h2>';
+
+            WORKS += '<ul class="works">';
+            for(var i = 0; i < NumOfRows; i++){
+                var works = document.getElementById('_works' + i).value; 
+                WORKS += '<li>' + works + '</li>';
+            }
+            WORKS += '</ul></div>';
+
+            return WORKS;
+        }
+
+        function insertHTML(id, html) {
+            var el = document.getElementById(id);
+    
+            if(!el) {
+                alert('Element with id ' + id + ' not found.');
+            }
+
+            el.innerHTML = html;
+        }
+
+        //Back button in bottom section
+        function goBack() {
+            toggleVisibility('resume_generator');
+            toggleVisibility('resume_page');
+            toggleVisibility('bottom');
+        }
+
+        function save() {
+            html2canvas(document.getElementById('resumeData'),{
+                onrendered: function(canvas) {
+                    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+                    var doc = new jsPDF('p', 'mm', [297,210]);
+                    doc.addImage(imgData, 'PNG', 10, 10, 190, 95);
+                    doc.save('resume.pdf');
+                }
+            });
+        }
+
+        function toggleVisibility(id) {
+                var dom = document.getElementById(id);
+                if(dom.style.visibility != "hidden"){
+                    dom.style.visibility = "hidden";
+                    dom.style.height="0px";
+                }
+                else if(dom.style.visibility == "hidden"){
+                    dom.style.visibility = "visible";
+                    dom.style.height="auto";
+                }
+            }
+    </script>
 </body>
-
-</html>
