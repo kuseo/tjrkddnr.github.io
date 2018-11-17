@@ -4,8 +4,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Tree Data Structure</title>
+    
+    <style>
+            canvas {border: 1px solid black}
+    </style>
 </head>
 <body>
-    
+    <canvas id="canvas" width="1000" height="1000"></canvas>
+    <script src="js/MyTree.js"></script>
+    <script>
+        var tree = create_root();
+
+        tree.add_node('1', 'data1'); //assign to root
+        tree.add_node('1-1', 'data1-1', '1'); //assign as child of node with data 'data1'
+        tree.add_node('1-2', 'data1-2', '1');
+        tree.add_node('1-3', 'data1-3', '1');
+
+        console.log(tree);
+    </script>
 </body>
 </html>
