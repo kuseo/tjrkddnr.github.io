@@ -1,10 +1,5 @@
 // homework 4-1-1
 
-func_array = {'createWindow':createWindow,
-            'createTextBox': createTextBox,
-            'createButton': createButton,
-            'createMenu': createMenu }
-
 function createWindow(id, parameters){
     var canvas = document.getElementById(id);
     if(canvas.getContext){
@@ -163,3 +158,8 @@ function roundedRect(ctx, x, y, width, height, radius) {
         }
     }
   }
+  
+  func_array = {'createWindow': createWindow,
+            'createTextBox': createTextBox,
+            'createButton': createButton,
+            'createMenu': createMenu };
