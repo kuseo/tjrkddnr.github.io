@@ -14,6 +14,11 @@ function Tree() {
     this.root = null;
 }
 
+// data of graphic element = {function: function name
+                        //   parameters: {
+                        //      posX: ??
+                        //      posY: ??
+                        //   }}
 Tree.prototype.add_node = function(id, data, toNodeid) {
     var node = new Node(id, data);
     var parent = toNodeid ? this.findBFS(toNodeid) : null;
@@ -66,5 +71,14 @@ Tree.prototype.findBFS = function(id) {
 };
 
 Tree.prototype.render = function() {
-
+    // BFS
+    var queue = [this.root];
+    while(queue.length) {
+        var node = queue.shift();
+        // render
+        func_array[node.data.function]('canvas', node.data.parameters);
+        for(var i = 0; i < node.children.length; i++) {
+            queue.push(node.children[i]);
+        }
+    }
 }
