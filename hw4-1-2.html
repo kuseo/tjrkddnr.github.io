@@ -10,17 +10,158 @@
     </style>
 </head>
 <body>
+    you can see the tree structure by 'developer tools' menu.
+
     <canvas id="canvas" width="1000" height="1000"></canvas>
+    <script src="js/myGUI.js"></script>
     <script src="js/MyTree.js"></script>
     <script>
         var tree = create_root();
 
-        tree.add_node('1', 'data1'); //assign to root
-        tree.add_node('1-1', 'data1-1', '1'); //assign as child of node with data 'data1'
-        tree.add_node('1-2', 'data1-2', '1');
-        tree.add_node('1-3', 'data1-3', '1');
+        tree.add_node('main window',
+            {
+                function: 'createWindow',
+                parameters: 
+                {
+                    posX: 50,
+                    posY: 50,
+                    width: 800,
+                    height: 600,
+                    title: 'Main Window'
+                }
+            }); //assign to root
+            
+            
+        tree.add_node('textbox', 
+            {
+                function: 'createTextBox',
+                parameters:
+                {
+                    posX: 100,
+                    posY: 100,
+                    width: 700,
+                    height: 100,
+                    font: 'serif',
+                    size: '20px',
+                    text: 'my textbox   my textbox   my textbox   my textbox'
+                }
+            },
+            'main window');
+        
+        tree.add_node('menu1',
+            {
+                function: 'createMenu',
+                parameters:
+                {
+                    posX: 100,
+                    posY: 250,
+                    width: 100,
+                    height: 50,
+                    items: ['item1', 'item2', '...', 'itmeN'],
+                    title: 'MY_MENU',
+                    font: 'serif',
+                    size: '20px'
+                }
+            },
+            'main window');
 
+        tree.add_node('button1', 
+            {
+                function: 'createButton',
+                parameters:
+                {
+                    posX: 100,
+                    posY: 550,
+                    width: 100,
+                    height: 50,
+                    font: 'serif',
+                    size: '20px',
+                    text: 'Button1'
+                }
+            },
+            'main window');
+
+        tree.add_node('button2', 
+            {
+                function: 'createButton',
+                parameters:
+                {
+                    posX: 250,
+                    posY: 550,
+                    width: 100,
+                    height: 50,
+                    font: 'serif',
+                    size: '20px',
+                    text: 'Button2'
+                }
+            },
+            'main window');
+
+        tree.add_node('button3', 
+            {
+                function: 'createButton',
+                parameters:
+                {
+                    posX: 400,
+                    posY: 550,
+                    width: 100,
+                    height: 50,
+                    font: 'serif',
+                    size: '20px',
+                    text: 'Button3'
+                }
+            },
+            'main window');
+
+        tree.add_node('window1-1 by button1',
+            {
+                function: 'createWindow',
+                parameters: 
+                {
+                    posX: 400,
+                    posY: 300,
+                    width: 300,
+                    height: 200,
+                    title: 'Window1-1 by Button1'
+                }
+            },
+            'button1');
+        
+        tree.add_node('textbox of window1-1', 
+            {
+                function: 'createTextBox',
+                parameters:
+                {
+                    posX: 420,
+                    posY: 350,
+                    width: 260,
+                    height: 50,
+                    font: 'serif',
+                    size: '20px',
+                    text: 'textbox of window1-1'
+                }
+            },
+            'window1-1 by button1');
+
+        tree.add_node('button1-1', 
+            {
+                function: 'createButton',
+                parameters:
+                {
+                    posX: 500,
+                    posY: 420,
+                    width: 100,
+                    height: 50,
+                    font: 'serif',
+                    size: '20px',
+                    text: 'Button1-1'
+                }
+            },
+            'window1-1 by button1');
+        
         console.log(tree);
+        /* render the graphic nodes by this function */
+        tree.render();
     </script>
 </body>
 </html>
