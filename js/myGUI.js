@@ -1,50 +1,9 @@
 // homework 4-1-1
 
-createWindow('canvas', 50, 50, 200, 200, "MY_WINDOW");
-
-createTextBox('canvas', 300, 150, 200, 100,
-{
-    font: 'serif',
-    size: '20px',
-    text: 'my textbox'
-});
-
-createButton('canvas', 400, 50, 200, 50,
-{
-    font: 'serif',
-    size: '20px',
-    text: 'MY_BUTTON'
-});
-
-createMenu('canvas', 100, 300, 100, 50,
-{
-    items: ['item1', 'item2', '...', 'itmeN'],
-    title: 'MY_MENU',
-    font: 'serif',
-    size: '20px'
-});
-
-createWindow('canvas', 300, 500, 250, 100, "MY_WINDOW2");
-
-createButton('canvas', 600, 100, 150, 100,
-{
-    font: 'Arial',
-    size: '30px',
-    text: 'MY_BUTTON2'
-});
-
-createTextBox('canvas', 300, 300, 500, 100,
-{
-    font: 'times',
-    size: '20px',
-    text: 'my textbox2'
-});
-
-createMenu('canvas', 700, 450, 200, 60,
-{
-    title: 'MY_MENU2',
-    items: ['item4', 'item3', 'item2', 'item1']
-});
+func_array = {'createWindow':createWindow,
+            'createTextBox': createTextBox,
+            'createButton': createButton,
+            'createMenu': createMenu }
 
 function createWindow(id, posX, posY, width, height, title){
     var canvas = document.getElementById(id);
