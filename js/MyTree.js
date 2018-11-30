@@ -82,3 +82,48 @@ Tree.prototype.render = function() {
         }
     }
 }
+
+Tree.prototype.printClickeObject = function(x, y) {
+    // BFS
+    var queue = [this.root];
+    var msg;
+    while(queue.length) {
+        var node = queue.shift();
+        
+        var objInfo = node.data.parameters;
+
+        if (objInfo.posX <= x && x <= objInfo.posX + objInfo.width &&
+            objInfo.posY <= y && y <= objInfo.posY + objInfo.height) {
+            msg = node.id;
+        } 
+        
+        for(var i = 0; i < node.children.length; i++) {
+            queue.push(node.children[i]);
+        }
+    }
+    alert("You have clicked " + msg);
+
+}
+
+// mouse callback routine
+function init(tree){
+    var canvas = document.getElementById("canvas");
+    canvas.addEventListener("mousedown", function(event){getPosition(event, tree)}, false);
+}
+
+function getPosition(event, tree){
+    var x = new Number();
+    var y = new Number();
+    var canvas = document.getElementById("canvas");
+
+    if (event.x != undefined && event.y != undefined) {
+        x = event.x;
+        y = event.y;
+    } else {
+        console.log('Error');
+    }
+    x -= canvas.offsetLeft;
+    y -= canvas.offsetTop;
+
+    tree.printClickeObject(x, y);
+}

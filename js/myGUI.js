@@ -111,9 +111,9 @@ function roundedRect(ctx, x, y, width, height, radius) {
     ctx.lineTo(x + radius, y);
     ctx.arcTo(x, y, x, y + radius, radius);
     ctx.stroke();
-  }
+}
 
-  function createMenu(id, parameters){
+function createMenu(id, parameters){
     var canvas = document.getElementById(id);
 
     if(canvas.getContext){
@@ -157,9 +157,9 @@ function roundedRect(ctx, x, y, width, height, radius) {
             index += 1;
         }
     }
-  }
-  
-  func_array = {'createWindow': createWindow,
-            'createTextBox': createTextBox,
-            'createButton': createButton,
-            'createMenu': createMenu };
+}
+
+func_array = {'createWindow': createWindow,
+        'createTextBox': createTextBox,
+        'createButton': createButton,
+        'createMenu': createMenu };
