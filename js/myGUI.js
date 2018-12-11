@@ -1,54 +1,15 @@
 // homework 4-1-1
 
-createWindow('canvas', 50, 50, 200, 200, "MY_WINDOW");
-
-createTextBox('canvas', 300, 150, 200, 100,
-{
-    font: 'serif',
-    size: '20px',
-    text: 'my textbox'
-});
-
-createButton('canvas', 400, 50, 200, 50,
-{
-    font: 'serif',
-    size: '20px',
-    text: 'MY_BUTTON'
-});
-
-createMenu('canvas', 100, 300, 100, 50,
-{
-    items: ['item1', 'item2', '...', 'itmeN'],
-    title: 'MY_MENU',
-    font: 'serif',
-    size: '20px'
-});
-
-createWindow('canvas', 300, 500, 250, 100, "MY_WINDOW2");
-
-createButton('canvas', 600, 100, 150, 100,
-{
-    font: 'Arial',
-    size: '30px',
-    text: 'MY_BUTTON2'
-});
-
-createTextBox('canvas', 300, 300, 500, 100,
-{
-    font: 'times',
-    size: '20px',
-    text: 'my textbox2'
-});
-
-createMenu('canvas', 700, 450, 200, 60,
-{
-    title: 'MY_MENU2',
-    items: ['item4', 'item3', 'item2', 'item1']
-});
-
-function createWindow(id, posX, posY, width, height, title){
+function createWindow(id, parameters){
     var canvas = document.getElementById(id);
     if(canvas.getContext){
+        parameters = parameters || {};
+        var posX = parameters.posX !== undefined ? parameters.posX : 0;
+        var posY = parameters.posY !== undefined ? parameters.posY : 0;
+        var width = parameters.width !== undefined ? parameters.width : 100;
+        var height = parameters.height !== undefined ? parameters.height : 100;
+        var title = parameters.title !== undefined ? parameters.title : 'default title';
+
         var mainwindow = canvas.getContext('2d');
 
         // properties
@@ -75,14 +36,18 @@ function createWindow(id, posX, posY, width, height, title){
     }
 }
 
-function createTextBox(id, posX, posY, width, height, parameters){
-    parameters = parameters || {};
-    var text = parameters.text !== undefined ? parameters.text : 'default text';
-    var font = parameters.font !== undefined ? parameters.font : 'serif';
-    var size = parameters.size !== undefined ? parameters.size : '20px';
-    
+function createTextBox(id, parameters){
     var canvas = document.getElementById(id);
     if(canvas.getContext){
+        parameters = parameters || {};
+        var posX = parameters.posX !== undefined ? parameters.posX : 0;
+        var posY = parameters.posY !== undefined ? parameters.posY : 0;
+        var width = parameters.width !== undefined ? parameters.width : 100;
+        var height = parameters.height !== undefined ? parameters.height : 100;
+        var text = parameters.text !== undefined ? parameters.text : 'default text';
+        var font = parameters.font !== undefined ? parameters.font : 'serif';
+        var size = parameters.size !== undefined ? parameters.size : '20px';
+
         var textbox = canvas.getContext('2d');
 
         // properties
@@ -102,14 +67,19 @@ function createTextBox(id, posX, posY, width, height, parameters){
     }
 }
 
-function createButton(id, posX, posY, width, height, parameters){
-    parameters = parameters || {};
-    var text = parameters.text !== undefined ? parameters.text : 'default text';
-    var font = parameters.font !== undefined ? parameters.font : 'serif';
-    var size = parameters.size !== undefined ? parameters.size : '20px';
-    
+function createButton(id, parameters){
     var canvas = document.getElementById(id);
+
     if(canvas.getContext){
+        parameters = parameters || {};
+        var posX = parameters.posX !== undefined ? parameters.posX : 0;
+        var posY = parameters.posY !== undefined ? parameters.posY : 0;
+        var width = parameters.width !== undefined ? parameters.width : 100;
+        var height = parameters.height !== undefined ? parameters.height : 100;
+        var text = parameters.text !== undefined ? parameters.text : 'default text';
+        var font = parameters.font !== undefined ? parameters.font : 'serif';
+        var size = parameters.size !== undefined ? parameters.size : '20px';
+
         var button = canvas.getContext('2d');
 
         // properties
@@ -141,17 +111,25 @@ function roundedRect(ctx, x, y, width, height, radius) {
     ctx.lineTo(x + radius, y);
     ctx.arcTo(x, y, x, y + radius, radius);
     ctx.stroke();
-  }
+}
 
-  function createMenu(id, posX, posY, width, height, parameters){
-    parameters = parameters || {};
-    var title = parameters.title !== undefined ? parameters.title : 'default title';
-    var font = parameters.font !== undefined ? parameters.font : 'serif';
-    var size = parameters.size !== undefined ? parameters.size : '20px';
-    var items = parameters.items !== undefined ? parameters.items : ['default item'];
-
+function createMenu(id, parameters){
     var canvas = document.getElementById(id);
+
     if(canvas.getContext){
+        parameters = parameters || {};
+        var posX = parameters.posX !== undefined ? parameters.posX : 0;
+        var posY = parameters.posY !== undefined ? parameters.posY : 0;
+        var width = parameters.width !== undefined ? parameters.width : 100;
+        var height = parameters.height !== undefined ? parameters.height : 100;
+        var text = parameters.text !== undefined ? parameters.text : 'default text';
+        var font = parameters.font !== undefined ? parameters.font : 'serif';
+        var size = parameters.size !== undefined ? parameters.size : '20px';
+        var title = parameters.title !== undefined ? parameters.title : 'default title';
+        var font = parameters.font !== undefined ? parameters.font : 'serif';
+        var size = parameters.size !== undefined ? parameters.size : '20px';
+        var items = parameters.items !== undefined ? parameters.items : ['default item'];
+
         var menu = canvas.getContext('2d');
 
         // properties
@@ -179,4 +157,9 @@ function roundedRect(ctx, x, y, width, height, radius) {
             index += 1;
         }
     }
-  }
+}
+
+func_array = {'createWindow': createWindow,
+        'createTextBox': createTextBox,
+        'createButton': createButton,
+        'createMenu': createMenu };

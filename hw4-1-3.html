@@ -10,12 +10,13 @@
     </style>
 </head>
 <body>
-    you can see the tree structure by 'developer tools' menu.(2018-11-19, 23:40)
+    you can see the tree structure by 'developer tools' menu.
 
     <canvas id="canvas" width="1000" height="1000"></canvas>
     <script src="js/myGUI.js"></script>
     <script src="js/MyTree.js"></script>
     <script>
+        
         var tree = create_root();
 
         tree.add_node('main window',
@@ -162,6 +163,8 @@
         console.log(tree);
         /* render the graphic nodes by this function */
         tree.render();
+
+        document.addEventListener("DOMContentLoaded", function(){init(tree)}, false);
     </script>
 </body>
 </html>
